@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCKYrDu-cWGxgNlOWvMI7pWPbYdMij1vZs",
+            authDomain: "todo-70a78.firebaseapp.com",
+            databaseURL: "https://todo-70a78.firebaseio.com",
+            projectId: "todo-70a78",
+            storageBucket: "todo-70a78.appspot.com",
+            messagingSenderId: "181826878603",
+            appId: "1:181826878603:web:5db18030456ac68273a88e"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <textarea id="message" row="10"></textarea>
+            <button id="send">send</button>
+        </div>
+        <div id="output"></div>
+    </div>
+</body>
+
+<script>
+    var database = firebase.database();
+    let room = "chat_room";
+    const send = document.getElementById("send");
+    const message = document.getElementById("message");
+    const output = document.getElementById("output");
+
+    send.addEventListener('click', function () {
+        database.ref(room).push({
+            message: message.value
+        });
+        message.value = "";
+    });
+
+    database.ref(room).on("child_added", function (data) {
+        const v = data.val();
+        const k = data.key;
+        let str = "";
+        str += '<div class="text">メッセージ：' + v.message + '</div>';
+        output.innerHTML += str;
+    });
+</script>
+
+</html>
