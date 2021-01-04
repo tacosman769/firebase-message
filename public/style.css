@@ -1,0 +1,16 @@
+body {
+    width: 200px;
+    margin: 50vh 0 0 50vw;
+    transform: translate(-50%, -50%);
+    background-color: rgba(236, 236, 236, 0.445);
+}
+
+#message {
+    height: 50px;
+    background-color: rgba(236, 236, 236, 0);
+}
+
+#send {
+    width: auto;
+    margin: 10px 0;
+}
